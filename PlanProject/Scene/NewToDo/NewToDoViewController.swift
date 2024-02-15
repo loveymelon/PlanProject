@@ -22,11 +22,12 @@ class NewToDoViewController: BaseViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(receivedNotiDate), name: NSNotification.Name("DateReceived"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receivedNotiTag), name: NSNotification.Name("TagReceived"), object: nil)
+        print(mainView.todoTableView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        print(mainView.todoTableView)
         self.mainView.todoTableView.reloadData()
     }
     
@@ -79,6 +80,7 @@ extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
             
         } else {
+            print(indexPath.section)
             let cell = UITableViewCell(style: .value1, reuseIdentifier: "sectionCell")
             cell.textLabel?.text = self.mainView.titleArray[indexPath.section - 1]
             

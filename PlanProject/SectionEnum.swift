@@ -8,7 +8,6 @@
 import Foundation
 
 enum SectionEnum: CaseIterable {
-    case titleMemo
     case memo
     case date
     case tag
@@ -17,7 +16,7 @@ enum SectionEnum: CaseIterable {
     
     var sectionCount: Int {
         switch self {
-        case .titleMemo, .memo:
+        case .memo:
             return 2
         default:
             return 1
