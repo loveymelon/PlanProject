@@ -21,10 +21,9 @@ final class CategoryView: BaseView {
         $0.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
         $0.setTitle("새로운 할 일", for: .normal)
         $0.addTarget(self, action: #selector(tappedAddButton), for: .touchUpInside)
+        $0.frame = CGRect(x: 0, y: 0, width: 150, height: 30)
+        $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
     }
-    
-    let titleArray = ["오늘", "예정", "전체", "깃발 표시", "완료됨"] // enum처리 할 것
-    let imageArray = ["calendar.circle", "calendar.circle.fill", "folder.fill", "flag.fill", "checkmark.circle.fill"]
     
     var addButtonFuc: (() -> Void)?
     

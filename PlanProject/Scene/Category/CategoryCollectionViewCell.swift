@@ -64,9 +64,11 @@ extension CategoryCollectionViewCell: ConfigureUIProtocol {
 }
 
 extension CategoryCollectionViewCell {
-    func configureCell(title: String, items: String) {
-        self.categoryLabel.text = title
-        self.categoryImageView.image = UIImage(systemName: items)
-        
+    func configureCell(item: CategoryEnum) {
+        self.categoryLabel.text = item.title
+        self.categoryImageView.image = UIImage(systemName: item.image)
+        if item == .all {
+            self.categoryTotalLabel.text = "\(item.realmCount)"
+        }
     }
 }

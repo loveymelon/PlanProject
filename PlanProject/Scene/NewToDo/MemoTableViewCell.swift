@@ -16,6 +16,11 @@ class MemoTableViewCell: UITableViewCell {
         $0.font = .boldSystemFont(ofSize: 20)
         $0.textColor = .lightGray
     }
+    
+    let titleTextField = UITextField().then {
+        $0.setPlaceholder(string: "제목", color: .gray)
+        $0.backgroundColor = .lightGray
+    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -39,16 +44,33 @@ extension MemoTableViewCell: ConfigureUIProtocol {
     func configureHierarchy() {
         
         self.contentView.addSubview(memoTextView)
+        self.contentView.addSubview(titleTextField)
         
     }
     
     func configureContraints() {
 
         self.memoTextView.snp.makeConstraints { make in
-            make.height.equalTo(100)
-            make.verticalEdges.horizontalEdges.equalToSuperview()
+            make.edges.equalToSuperview()
+        }
+        
+        self.titleTextField.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
     }
 }
 
+extension MemoTableViewCell {
+    func configureCell(index: Int) {
+        
+        if index == 0 {
+            self.memoTextView.isHidden = true
+            self.titleTextField.isHidden = false
+        } else {
+            self.memoTextView.isHidden = false
+            self.titleTextField.isHidden = true
+        }
+        
+    }
+}

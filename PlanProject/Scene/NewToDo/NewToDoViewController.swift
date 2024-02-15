@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class NewToDoViewController: BaseViewController {
     
@@ -22,17 +23,25 @@ class NewToDoViewController: BaseViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(receivedNotiDate), name: NSNotification.Name("DateReceived"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receivedNotiTag), name: NSNotification.Name("TagReceived"), object: nil)
-        print(mainView.todoTableView)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print(mainView.todoTableView)
+        
         self.mainView.todoTableView.reloadData()
+        checkDicData()
+        
     }
     
     override func configureNav() {
         self.navigationItem.title = "새로운 할 일"
+        
+        lazy var rightButton = UIBarButtonItem(title: "추가", style: .done, target: self, action: #selector(tappedRightButton))
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(tappedLeftButton))
+        navigationItem.rightBarButtonItem = rightButton
+        navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
     override func delegateDataSource() {
@@ -52,6 +61,40 @@ class NewToDoViewController: BaseViewController {
             dataDic["Tag"] = value
         }
     }
+    
+    @objc func tappedLeftButton() {
+        self.dismiss(animated: true)
+    }
+    
+    @objc func tappedRightButton() {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
+
+        guard let title = dataDic["Title"] else { return }
+        guard let tempDate = dataDic["Date"] else { return }
+        guard let tag = dataDic["Tag"] else { return }
+        guard let priority = dataDic["Priority"] else { return }
+        
+        let memo = dataDic["Memo"]
+        print(tempDate)
+        let date:Date = dateFormatter.date(from: tempDate)!
+        
+        let realm = try! Realm()
+        
+        let data = TodoRealm(title: title, memo: memo, date: date, tag: tag, priority: priority)
+        print(data)
+        print(realm.configuration.fileURL)
+        
+        try! realm.write{
+                realm.add(data)
+            print("Realm Create")
+        }
+        
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }
 
 extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
@@ -67,36 +110,35 @@ extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath == [0, 0] {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleTableViewCell.identifier, for: indexPath) as? TitleTableViewCell else { return UITableViewCell() }
-            
-            return cell
-            
-        } else if indexPath == [0, 1] {
+        if indexPath.section == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: MemoTableViewCell.identifier, for: indexPath) as? MemoTableViewCell else { return UITableViewCell() }
             
             cell.memoTextView.delegate = self
+            cell.titleTextField.delegate = self
+            cell.configureCell(index: indexPath.row)
+            
+            dataDic["Title"] = cell.titleTextField.text
+            dataDic["Memo"] = cell.memoTextView.text
             
             return cell
             
         } else {
-            print(indexPath.section)
             let cell = UITableViewCell(style: .value1, reuseIdentifier: "sectionCell")
-            cell.textLabel?.text = self.mainView.titleArray[indexPath.section - 1]
-            
-            switch indexPath.section {
-            case 1:
+
+            cell.textLabel?.text = SectionEnum.allCases[indexPath.section].title
+            cell.accessoryType = .disclosureIndicator
+
+            switch SectionEnum(rawValue: indexPath.section) {
+            case .date:
                 cell.detailTextLabel?.text = dataDic["Date"] ?? ""
-            case 2:
+            case .tag:
                 cell.detailTextLabel?.text = dataDic["Tag"] ?? ""
-            case 3:
+            case .priority:
                 cell.detailTextLabel?.text = dataDic["Priority"] ?? ""
             default:
-                print("")
+                break
             }
-            
-            cell.accessoryType = .disclosureIndicator
-            
+
             return cell
         }
         
@@ -114,12 +156,21 @@ extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
         case 3:
             let vc = PriorityViewController()
             vc.segValue = { result in
-                self.dataDic["Priority"] = "\(result)"
+                self.dataDic["Priority"] = result
             }
             
             self.navigationController?.pushViewController(vc, animated: true)
         default:
             return
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section == 0 {
+        case _ where indexPath.item == 1:
+            return 100
+        default:
+            return 40
         }
     }
     
@@ -137,6 +188,23 @@ extension NewToDoViewController: UITextViewDelegate {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             textView.text = "메모"
             textView.textColor = .lightGray
+        }
+        checkDicData()
+    }
+}
+
+extension NewToDoViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        checkDicData()
+    }
+}
+
+extension NewToDoViewController {
+    func checkDicData() {
+        if dataDic["Title"] != nil && dataDic["Date"] != nil && dataDic["Tag"] != nil && dataDic["Priority"] != nil {
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+        } else {
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
     }
 }

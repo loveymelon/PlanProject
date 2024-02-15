@@ -11,7 +11,7 @@ class PriorityViewController: BaseViewController {
     
     let mainView = PriorityView()
     
-    var segValue: ((Int) -> Void)?
+    var segValue: ((String) -> Void)?
 
     override func loadView() {
         self.view = mainView
@@ -27,7 +27,15 @@ class PriorityViewController: BaseViewController {
     }
     
     @objc func segValueChanged() {
-        segValue?(self.mainView.segment.selectedSegmentIndex)
+        switch self.mainView.segment.selectedSegmentIndex {
+        case 0:
+            segValue?("중요")
+        case 1:
+            segValue?("보통")
+        default:
+            break
+        }
+        
 //        print(self.mainView.segment.selectedSegmentIndex)
     }
 

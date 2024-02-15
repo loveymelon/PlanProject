@@ -11,7 +11,7 @@ import Then
 
 class PriorityView: BaseView {
     
-    let segment = UISegmentedControl(items: ["aaa", "bbb"]).then {
+    let segment = UISegmentedControl(items: ["중요", "보통"]).then {
         $0.backgroundColor = .white
         $0.selectedSegmentTintColor = .red
     }

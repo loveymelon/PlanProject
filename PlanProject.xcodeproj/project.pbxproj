@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF5EEE682B7DF160006C5668 /* CategoryEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5EEE672B7DF160006C5668 /* CategoryEnum.swift */; };
+		DF5EEE6E2B7DF68E006C5668 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = DF5EEE6D2B7DF68E006C5668 /* Realm */; };
+		DF5EEE702B7DF68E006C5668 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF5EEE6F2B7DF68E006C5668 /* RealmSwift */; };
+		DF5EEE752B7DF726006C5668 /* TodoRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5EEE742B7DF726006C5668 /* TodoRealm.swift */; };
+		DF5EEE782B7E1B78006C5668 /* AllView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5EEE772B7E1B78006C5668 /* AllView.swift */; };
+		DF5EEE7A2B7E1B85006C5668 /* AllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5EEE792B7E1B84006C5668 /* AllViewController.swift */; };
 		DF72E2172B7C7C9D00E49B6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF72E2162B7C7C9D00E49B6D /* AppDelegate.swift */; };
 		DF72E2192B7C7C9D00E49B6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF72E2182B7C7C9D00E49B6D /* SceneDelegate.swift */; };
 		DF72E21E2B7C7C9D00E49B6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF72E21C2B7C7C9D00E49B6D /* Main.storyboard */; };
@@ -27,7 +33,6 @@
 		DF72E2492B7CA80400E49B6D /* ToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF72E2482B7CA80400E49B6D /* ToDoView.swift */; };
 		DF72E24B2B7CAA9A00E49B6D /* MemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF72E24A2B7CAA9A00E49B6D /* MemoTableViewCell.swift */; };
 		DF72E24D2B7CAFFD00E49B6D /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF72E24C2B7CAFFD00E49B6D /* UITextField+Extension.swift */; };
-		DF72E24F2B7CB45300E49B6D /* TitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF72E24E2B7CB45300E49B6D /* TitleTableViewCell.swift */; };
 		DF72E2522B7CBB5B00E49B6D /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF72E2512B7CBB5B00E49B6D /* DateViewController.swift */; };
 		DF72E2542B7CBB6800E49B6D /* DateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF72E2532B7CBB6800E49B6D /* DateView.swift */; };
 		DF72E2572B7CBD3C00E49B6D /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF72E2562B7CBD3C00E49B6D /* TagView.swift */; };
@@ -38,6 +43,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DF5EEE672B7DF160006C5668 /* CategoryEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryEnum.swift; sourceTree = "<group>"; };
+		DF5EEE742B7DF726006C5668 /* TodoRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRealm.swift; sourceTree = "<group>"; };
+		DF5EEE772B7E1B78006C5668 /* AllView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllView.swift; sourceTree = "<group>"; };
+		DF5EEE792B7E1B84006C5668 /* AllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllViewController.swift; sourceTree = "<group>"; };
 		DF72E2132B7C7C9D00E49B6D /* PlanProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlanProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF72E2162B7C7C9D00E49B6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF72E2182B7C7C9D00E49B6D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,7 +67,6 @@
 		DF72E2482B7CA80400E49B6D /* ToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoView.swift; sourceTree = "<group>"; };
 		DF72E24A2B7CAA9A00E49B6D /* MemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTableViewCell.swift; sourceTree = "<group>"; };
 		DF72E24C2B7CAFFD00E49B6D /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
-		DF72E24E2B7CB45300E49B6D /* TitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTableViewCell.swift; sourceTree = "<group>"; };
 		DF72E2512B7CBB5B00E49B6D /* DateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
 		DF72E2532B7CBB6800E49B6D /* DateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateView.swift; sourceTree = "<group>"; };
 		DF72E2562B7CBD3C00E49B6D /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
@@ -73,6 +81,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF5EEE702B7DF68E006C5668 /* RealmSwift in Frameworks */,
+				DF5EEE6E2B7DF68E006C5668 /* Realm in Frameworks */,
 				DF72E22E2B7C7D1C00E49B6D /* SnapKit in Frameworks */,
 				DF72E2312B7C7D2400E49B6D /* Then in Frameworks */,
 			);
@@ -81,6 +91,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DF5EEE6B2B7DF60D006C5668 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				DF72E2332B7C7D5100E49B6D /* CategoryView.swift */,
+				DF72E22A2B7C7D0600E49B6D /* CategoryViewController.swift */,
+				DF72E23A2B7C7FB000E49B6D /* CategoryCollectionViewCell.swift */,
+				DF72E2432B7C837700E49B6D /* CustomCollectionReusableView.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		DF5EEE712B7DF69B006C5668 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				DF72E23F2B7C802B00E49B6D /* UIView+Extension.swift */,
+				DF72E24C2B7CAFFD00E49B6D /* UITextField+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		DF5EEE722B7DF6A7006C5668 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				DF72E2652B7CEABE00E49B6D /* SectionEnum.swift */,
+				DF5EEE672B7DF160006C5668 /* CategoryEnum.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		DF5EEE732B7DF708006C5668 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				DF5EEE742B7DF726006C5668 /* TodoRealm.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
+		DF5EEE762B7E1B64006C5668 /* All */ = {
+			isa = PBXGroup;
+			children = (
+				DF5EEE772B7E1B78006C5668 /* AllView.swift */,
+				DF5EEE792B7E1B84006C5668 /* AllViewController.swift */,
+			);
+			path = All;
+			sourceTree = "<group>";
+		};
 		DF72E20A2B7C7C9D00E49B6D = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +156,9 @@
 		DF72E2152B7C7C9D00E49B6D /* PlanProject */ = {
 			isa = PBXGroup;
 			children = (
+				DF5EEE732B7DF708006C5668 /* Realm */,
+				DF5EEE722B7DF6A7006C5668 /* Enum */,
+				DF5EEE712B7DF69B006C5668 /* Extension */,
 				DF72E23E2B7C801400E49B6D /* Protocol */,
 				DF72E2352B7C7D6D00E49B6D /* Base */,
 				DF72E2322B7C7D3200E49B6D /* Scene */,
@@ -109,9 +168,6 @@
 				DF72E21F2B7C7C9F00E49B6D /* Assets.xcassets */,
 				DF72E2212B7C7C9F00E49B6D /* LaunchScreen.storyboard */,
 				DF72E2242B7C7C9F00E49B6D /* Info.plist */,
-				DF72E23F2B7C802B00E49B6D /* UIView+Extension.swift */,
-				DF72E24C2B7CAFFD00E49B6D /* UITextField+Extension.swift */,
-				DF72E2652B7CEABE00E49B6D /* SectionEnum.swift */,
 			);
 			path = PlanProject;
 			sourceTree = "<group>";
@@ -119,14 +175,12 @@
 		DF72E2322B7C7D3200E49B6D /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				DF5EEE762B7E1B64006C5668 /* All */,
+				DF5EEE6B2B7DF60D006C5668 /* Category */,
 				DF72E25A2B7CCDAB00E49B6D /* Priority */,
 				DF72E2552B7CBD2200E49B6D /* Tag */,
 				DF72E2502B7CBB3E00E49B6D /* Date */,
 				DF72E2452B7CA7B700E49B6D /* NewToDo */,
-				DF72E22A2B7C7D0600E49B6D /* CategoryViewController.swift */,
-				DF72E2332B7C7D5100E49B6D /* CategoryView.swift */,
-				DF72E23A2B7C7FB000E49B6D /* CategoryCollectionViewCell.swift */,
-				DF72E2432B7C837700E49B6D /* CustomCollectionReusableView.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -155,7 +209,6 @@
 				DF72E2462B7CA7E200E49B6D /* NewToDoViewController.swift */,
 				DF72E2482B7CA80400E49B6D /* ToDoView.swift */,
 				DF72E24A2B7CAA9A00E49B6D /* MemoTableViewCell.swift */,
-				DF72E24E2B7CB45300E49B6D /* TitleTableViewCell.swift */,
 			);
 			path = NewToDo;
 			sourceTree = "<group>";
@@ -206,6 +259,8 @@
 			packageProductDependencies = (
 				DF72E22D2B7C7D1C00E49B6D /* SnapKit */,
 				DF72E2302B7C7D2400E49B6D /* Then */,
+				DF5EEE6D2B7DF68E006C5668 /* Realm */,
+				DF5EEE6F2B7DF68E006C5668 /* RealmSwift */,
 			);
 			productName = PlanProject;
 			productReference = DF72E2132B7C7C9D00E49B6D /* PlanProject.app */;
@@ -238,6 +293,7 @@
 			packageReferences = (
 				DF72E22C2B7C7D1C00E49B6D /* XCRemoteSwiftPackageReference "SnapKit" */,
 				DF72E22F2B7C7D2400E49B6D /* XCRemoteSwiftPackageReference "Then" */,
+				DF5EEE6C2B7DF68E006C5668 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = DF72E2142B7C7C9D00E49B6D /* Products */;
 			projectDirPath = "";
@@ -267,19 +323,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF72E2572B7CBD3C00E49B6D /* TagView.swift in Sources */,
+				DF5EEE782B7E1B78006C5668 /* AllView.swift in Sources */,
 				DF72E24D2B7CAFFD00E49B6D /* UITextField+Extension.swift in Sources */,
 				DF72E2492B7CA80400E49B6D /* ToDoView.swift in Sources */,
 				DF72E2372B7C7D7B00E49B6D /* BaseViewController.swift in Sources */,
 				DF72E25E2B7CCDE500E49B6D /* PriorityView.swift in Sources */,
 				DF72E2442B7C837700E49B6D /* CustomCollectionReusableView.swift in Sources */,
+				DF5EEE682B7DF160006C5668 /* CategoryEnum.swift in Sources */,
 				DF72E23D2B7C7FE000E49B6D /* ReusableIdentifier.swift in Sources */,
 				DF72E2172B7C7C9D00E49B6D /* AppDelegate.swift in Sources */,
 				DF72E2542B7CBB6800E49B6D /* DateView.swift in Sources */,
 				DF72E24B2B7CAA9A00E49B6D /* MemoTableViewCell.swift in Sources */,
 				DF72E2402B7C802B00E49B6D /* UIView+Extension.swift in Sources */,
-				DF72E24F2B7CB45300E49B6D /* TitleTableViewCell.swift in Sources */,
 				DF72E2662B7CEABE00E49B6D /* SectionEnum.swift in Sources */,
+				DF5EEE752B7DF726006C5668 /* TodoRealm.swift in Sources */,
 				DF72E2472B7CA7E200E49B6D /* NewToDoViewController.swift in Sources */,
+				DF5EEE7A2B7E1B85006C5668 /* AllViewController.swift in Sources */,
 				DF72E22B2B7C7D0600E49B6D /* CategoryViewController.swift in Sources */,
 				DF72E2342B7C7D5100E49B6D /* CategoryView.swift in Sources */,
 				DF72E2392B7C7DFC00E49B6D /* ConfigureUIProtocol.swift in Sources */,
@@ -513,6 +572,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		DF5EEE6C2B7DF68E006C5668 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 10.47.0;
+			};
+		};
 		DF72E22C2B7C7D1C00E49B6D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -532,6 +599,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DF5EEE6D2B7DF68E006C5668 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF5EEE6C2B7DF68E006C5668 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		DF5EEE6F2B7DF68E006C5668 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF5EEE6C2B7DF68E006C5668 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
 		DF72E22D2B7C7D1C00E49B6D /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DF72E22C2B7C7D1C00E49B6D /* XCRemoteSwiftPackageReference "SnapKit" */;

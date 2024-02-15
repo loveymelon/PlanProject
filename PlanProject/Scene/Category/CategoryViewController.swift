@@ -20,6 +20,12 @@ class CategoryViewController: BaseViewController {
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.mainView.collectionView.reloadData()
+    }
+    
     override func delegateDataSource() {
         self.mainView.collectionView.dataSource = self
         self.mainView.collectionView.delegate = self
@@ -30,7 +36,7 @@ class CategoryViewController: BaseViewController {
         
         let addToDoButton = UIBarButtonItem(customView: self.mainView.addButton)
         
-        let addList = UIBarButtonItem(title: "목록 추가", style: .plain, target: self, action: #selector(tappedAddListButton))
+        let addList = UIBarButtonItem(title: "목록 추가", style: .plain, target: self, action: nil)
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         
         self.mainView.addButtonFuc = { [self] in
@@ -40,12 +46,6 @@ class CategoryViewController: BaseViewController {
         }
         
         self.toolbarItems = [addToDoButton, flexibleSpace, addList]
-    }
-    
-    
-    
-    @objc func tappedAddListButton() {
-        print(#function)
     }
     
     func goView() {
@@ -59,7 +59,7 @@ class CategoryViewController: BaseViewController {
 
 extension CategoryViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.mainView.titleArray.count
+        return CategoryEnum.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -67,10 +67,10 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
             return UICollectionViewCell()
         }
         
-        let titleItem = self.mainView.titleArray[indexPath.item]
-        let imageItem = self.mainView.imageArray[indexPath.item]
+        let categoryItem = CategoryEnum.allCases[indexPath.item]
         
-        cell.configureCell(title: titleItem, items: imageItem)
+        cell.configureCell(item: categoryItem)
+        
         
         return cell
     }
@@ -84,6 +84,13 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let width = view.frame.width
         return CGSize(width: width, height: width * 0.1)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.item == 2 {
+            let vc = AllViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
 }
