@@ -5,7 +5,7 @@
 //  Created by 김진수 on 2/15/24.
 //
 
-import Foundation
+import UIKit
 import RealmSwift
 
 enum CategoryEnum: CaseIterable {
@@ -37,11 +37,26 @@ enum CategoryEnum: CaseIterable {
         case .plan:
             return "calendar.circle.fill"
         case .all:
-            return "folder.fill"
+            return "tray.circle.fill"
         case .flag:
-            return "flag.fill"
+            return "flag.circle.fill"
         case .complete:
             return "checkmark.circle.fill"
+        }
+    }
+    
+    var imageColor: UIColor {
+        switch self {
+        case .today:
+            return UIColor.blue
+        case .plan:
+            return UIColor.red
+        case .all:
+            return UIColor.gray
+        case .flag:
+            return UIColor.orange
+        case .complete:
+            return UIColor.gray
         }
     }
     

@@ -8,6 +8,10 @@
 import UIKit
 import RealmSwift
 
+enum NotificationError: Error {
+    
+}
+
 class NewToDoViewController: BaseViewController {
     
     let mainView = ToDoView()
@@ -38,9 +42,10 @@ class NewToDoViewController: BaseViewController {
     override func configureNav() {
         self.navigationItem.title = "새로운 할 일"
         
-        lazy var rightButton = UIBarButtonItem(title: "추가", style: .done, target: self, action: #selector(tappedRightButton))
-        
+        // 아래 UIBarButtonItem을 View부분으로 빼는 것을 고려하였지만 addTarget을 호출하기 위해서는 lazy키워드를 써야된다는 것에 뷰컨으로 남겨뒀습니다.
+        let rightButton = UIBarButtonItem(title: "추가", style: .done, target: self, action: #selector(tappedRightButton))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(tappedLeftButton))
+        
         navigationItem.rightBarButtonItem = rightButton
         navigationItem.rightBarButtonItem?.isEnabled = false
     }

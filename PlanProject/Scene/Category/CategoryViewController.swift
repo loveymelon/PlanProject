@@ -33,6 +33,7 @@ class CategoryViewController: BaseViewController {
     
     override func configureNav() {
         self.navigationController?.isToolbarHidden = false
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: nil)
         
         let addToDoButton = UIBarButtonItem(customView: self.mainView.addButton)
         
@@ -83,14 +84,18 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let width = view.frame.width
-        return CGSize(width: width, height: width * 0.1)
+        return CGSize(width: width, height: width * 0.2)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.item == 2 {
-            let vc = AllViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CategoryCollectionViewCell else { return }
+        
+        let vc = AllViewController()
+        
+        vc.titleText = cell.categoryLabel.text
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
 }

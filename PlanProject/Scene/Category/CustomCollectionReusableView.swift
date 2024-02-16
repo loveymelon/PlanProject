@@ -13,7 +13,7 @@ final class CustomCollectionReusableView: UICollectionReusableView {
     
     private let categoryLabel = UILabel().then {
         $0.text = "전체"
-        $0.font = .boldSystemFont(ofSize: 20)
+        $0.font = .boldSystemFont(ofSize: 40)
         $0.textColor = .lightGray
     }
     

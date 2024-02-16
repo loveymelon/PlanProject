@@ -12,10 +12,13 @@ import SnapKit
 class CategoryCollectionViewCell: UICollectionViewCell {
     
     let categoryImageView = UIImageView()
-    let categoryLabel = UILabel()
+    let categoryLabel = UILabel().then {
+        $0.textColor = .lightGray
+    }
     let categoryTotalLabel = UILabel().then {
         $0.isHidden = false
-        $0.font = .boldSystemFont(ofSize: 20)
+        $0.font = .boldSystemFont(ofSize: 30)
+        $0.textColor = .white
         $0.text = "0"
     }
     
@@ -23,7 +26,8 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         configureUI()
-        self.backgroundColor = .lightGray
+        self.backgroundColor = .darkGray
+        self.layer.cornerRadius = 10
     }
     
     required init?(coder: NSCoder) {
@@ -67,6 +71,7 @@ extension CategoryCollectionViewCell {
     func configureCell(item: CategoryEnum) {
         self.categoryLabel.text = item.title
         self.categoryImageView.image = UIImage(systemName: item.image)
+        self.categoryImageView.tintColor = item.imageColor
         if item == .all {
             self.categoryTotalLabel.text = "\(item.realmCount)"
         }

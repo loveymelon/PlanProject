@@ -12,7 +12,8 @@ class AllViewController: BaseViewController {
     
     let mainView = AllView()
     
-    var realmData: Results<TodoRealm>!
+    var titleText: String?
+    var buttonEvent: (() -> Void)?
     
     override func loadView() {
         self.view = mainView
@@ -26,51 +27,21 @@ class AllViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let realm = try! Realm()
-        
-        self.realmData = realm.objects(TodoRealm.self)
-        
-        self.mainView.tableView.reloadData()
     }
     
     override func configureNav() {
         self.navigationItem.title = "전체"
-        
-        let date = UIAction(title: "날짜") { [self] _ in
-            let realm = try! Realm()
-            
-            realmData = realm.objects(TodoRealm.self).sorted(byKeyPath: "date", ascending: true)
-            
-            self.mainView.tableView.reloadData()
-        }
-        
-        let title = UIAction(title: "제목") { [self] _ in
-            let realm = try! Realm()
-            
-            realmData = realm.objects(TodoRealm.self).sorted(byKeyPath: "title", ascending: false)
-            
-            self.mainView.tableView.reloadData()
-        }
-        
-        let priority = UIAction(title: "우선 순위") { [self] _ in
-            let realm = try! Realm()
-            
-            realmData = realm.objects(TodoRealm.self).sorted(byKeyPath: "priority", ascending: true)
-            
-            self.mainView.tableView.reloadData()
-        }
-        
-        let buttonMenu = UIMenu(children: [date, title, priority])
-        
-        self.mainView.filterButton.menu = buttonMenu
-        let rightButton = UIBarButtonItem(customView: self.mainView.filterButton)
-        
-        self.navigationItem.rightBarButtonItem = rightButton
+        self.navigationController?.navigationBar.backgroundColor = .blue
     }
     
     override func delegateDataSource() {
         self.mainView.tableView.delegate = self
         self.mainView.tableView.dataSource = self
+    }
+    
+    @objc func tappedCheckButton(sender: UIButton) {
+        buttonEvent?()
+        print(#function)
     }
 
 }
@@ -78,15 +49,31 @@ class AllViewController: BaseViewController {
 extension AllViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.realmData.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AllTableCell") as! UITableViewCell
-        let row = self.realmData[indexPath.row]
-        cell.textLabel?.text = "\(row.tag)"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: AllTableViewCell.identifier) as? AllTableViewCell else { return UITableViewCell() }
+        
+        cell.configureUI()
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: AllTableHeaderView.identifier) as? AllTableHeaderView else { return UIView() }
+        
+        headerView.configureHeaderView(text: titleText ?? "타이틀 없음")
+        
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UIScreen.main.bounds.width * 0.1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return .leastNormalMagnitude
     }
     
 }
