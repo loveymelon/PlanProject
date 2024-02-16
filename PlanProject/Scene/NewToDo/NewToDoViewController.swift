@@ -30,6 +30,7 @@ class NewToDoViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         self.mainView.todoTableView.reloadData()
+        print(dataDic)
         checkDicData()
         
     }
@@ -52,7 +53,6 @@ class NewToDoViewController: BaseViewController {
     @objc func receivedNotiDate(notification: NSNotification) {
         if let value = notification.userInfo?["Date"] as? String {
             dataDic["Date"] = value
-            print(value)
         }
     }
     
@@ -78,14 +78,12 @@ class NewToDoViewController: BaseViewController {
         guard let priority = dataDic["Priority"] else { return }
         
         let memo = dataDic["Memo"]
-        print(tempDate)
+
         let date:Date = dateFormatter.date(from: tempDate)!
         
         let realm = try! Realm()
         
         let data = TodoRealm(title: title, memo: memo, date: date, tag: tag, priority: priority)
-        print(data)
-        print(realm.configuration.fileURL)
         
         try! realm.write{
                 realm.add(data)
@@ -115,10 +113,14 @@ extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.memoTextView.delegate = self
             cell.titleTextField.delegate = self
-            cell.configureCell(index: indexPath.row)
             
-            dataDic["Title"] = cell.titleTextField.text
-            dataDic["Memo"] = cell.memoTextView.text
+            let titleText = dataDic["Title"] ?? ""
+            let memoText = dataDic["Memo"] ?? "메모"
+            
+            cell.configureCell(index: indexPath.row, title: titleText, memo: memoText)
+            
+            dataDic["Title"] = titleText
+            dataDic["Memo"] = memoText
             
             return cell
             
@@ -189,19 +191,22 @@ extension NewToDoViewController: UITextViewDelegate {
             textView.text = "메모"
             textView.textColor = .lightGray
         }
+        
         checkDicData()
     }
 }
 
 extension NewToDoViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
+        print(textField.text)
         checkDicData()
     }
 }
 
 extension NewToDoViewController {
     func checkDicData() {
-        if dataDic["Title"] != nil && dataDic["Date"] != nil && dataDic["Tag"] != nil && dataDic["Priority"] != nil {
+        if dataDic["Title"] != "" && dataDic["Date"] != nil && dataDic["Tag"] != "" && dataDic["Priority"] != "" {
+            print(#function)
             self.navigationItem.rightBarButtonItem?.isEnabled = true
         } else {
             self.navigationItem.rightBarButtonItem?.isEnabled = false

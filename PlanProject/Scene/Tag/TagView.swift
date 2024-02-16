@@ -13,6 +13,7 @@ class TagView: BaseView {
     
     let tagTextField = UITextField().then {
         $0.setPlaceholder(string: "입력하세요", color: .white)
+        $0.textColor = .white
     }
 
     override init(frame: CGRect) {

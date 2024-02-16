@@ -62,7 +62,7 @@ extension MemoTableViewCell: ConfigureUIProtocol {
 }
 
 extension MemoTableViewCell {
-    func configureCell(index: Int) {
+    func configureCell(index: Int, title: String, memo: String) {
         
         if index == 0 {
             self.memoTextView.isHidden = true
@@ -71,6 +71,9 @@ extension MemoTableViewCell {
             self.memoTextView.isHidden = false
             self.titleTextField.isHidden = true
         }
+        
+        self.titleTextField.text = title
+        self.memoTextView.text = memo
         
     }
 }
