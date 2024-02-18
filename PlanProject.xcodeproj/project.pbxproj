@@ -16,6 +16,10 @@
 		DF5EEE752B7DF726006C5668 /* TodoRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5EEE742B7DF726006C5668 /* TodoRealm.swift */; };
 		DF5EEE782B7E1B78006C5668 /* AllView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5EEE772B7E1B78006C5668 /* AllView.swift */; };
 		DF5EEE7A2B7E1B85006C5668 /* AllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5EEE792B7E1B84006C5668 /* AllViewController.swift */; };
+		DF67A2712B80AB9C00F6D758 /* TodoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF67A2702B80AB9C00F6D758 /* TodoRepository.swift */; };
+		DF67A2732B80BF7300F6D758 /* FilterEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF67A2722B80BF7300F6D758 /* FilterEnum.swift */; };
+		DF67A2752B80D26500F6D758 /* TodoEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF67A2742B80D26500F6D758 /* TodoEnum.swift */; };
+		DF67A2772B80EB9C00F6D758 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF67A2762B80EB9C00F6D758 /* Date+Extension.swift */; };
 		DF72E2172B7C7C9D00E49B6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF72E2162B7C7C9D00E49B6D /* AppDelegate.swift */; };
 		DF72E2192B7C7C9D00E49B6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF72E2182B7C7C9D00E49B6D /* SceneDelegate.swift */; };
 		DF72E21E2B7C7C9D00E49B6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF72E21C2B7C7C9D00E49B6D /* Main.storyboard */; };
@@ -43,6 +47,7 @@
 		DF72E25C2B7CCDD600E49B6D /* PriorityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF72E25B2B7CCDD600E49B6D /* PriorityViewController.swift */; };
 		DF72E25E2B7CCDE500E49B6D /* PriorityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF72E25D2B7CCDE500E49B6D /* PriorityView.swift */; };
 		DF72E2662B7CEABE00E49B6D /* SectionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF72E2652B7CEABE00E49B6D /* SectionEnum.swift */; };
+		DF945D832B82502600B366F9 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF945D822B82502600B366F9 /* UITextView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +57,10 @@
 		DF5EEE742B7DF726006C5668 /* TodoRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRealm.swift; sourceTree = "<group>"; };
 		DF5EEE772B7E1B78006C5668 /* AllView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllView.swift; sourceTree = "<group>"; };
 		DF5EEE792B7E1B84006C5668 /* AllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllViewController.swift; sourceTree = "<group>"; };
+		DF67A2702B80AB9C00F6D758 /* TodoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRepository.swift; sourceTree = "<group>"; };
+		DF67A2722B80BF7300F6D758 /* FilterEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterEnum.swift; sourceTree = "<group>"; };
+		DF67A2742B80D26500F6D758 /* TodoEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEnum.swift; sourceTree = "<group>"; };
+		DF67A2762B80EB9C00F6D758 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		DF72E2132B7C7C9D00E49B6D /* PlanProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlanProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF72E2162B7C7C9D00E49B6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF72E2182B7C7C9D00E49B6D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +88,7 @@
 		DF72E25B2B7CCDD600E49B6D /* PriorityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityViewController.swift; sourceTree = "<group>"; };
 		DF72E25D2B7CCDE500E49B6D /* PriorityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityView.swift; sourceTree = "<group>"; };
 		DF72E2652B7CEABE00E49B6D /* SectionEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionEnum.swift; sourceTree = "<group>"; };
+		DF945D822B82502600B366F9 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +123,8 @@
 			children = (
 				DF72E23F2B7C802B00E49B6D /* UIView+Extension.swift */,
 				DF72E24C2B7CAFFD00E49B6D /* UITextField+Extension.swift */,
+				DF67A2762B80EB9C00F6D758 /* Date+Extension.swift */,
+				DF945D822B82502600B366F9 /* UITextView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -122,6 +134,8 @@
 			children = (
 				DF72E2652B7CEABE00E49B6D /* SectionEnum.swift */,
 				DF5EEE672B7DF160006C5668 /* CategoryEnum.swift */,
+				DF67A2722B80BF7300F6D758 /* FilterEnum.swift */,
+				DF67A2742B80D26500F6D758 /* TodoEnum.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -130,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				DF5EEE742B7DF726006C5668 /* TodoRealm.swift */,
+				DF67A2702B80AB9C00F6D758 /* TodoRepository.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -334,22 +349,27 @@
 			files = (
 				DF72E2572B7CBD3C00E49B6D /* TagView.swift in Sources */,
 				DF5EEE782B7E1B78006C5668 /* AllView.swift in Sources */,
+				DF945D832B82502600B366F9 /* UITextView+Extension.swift in Sources */,
 				DF72E24D2B7CAFFD00E49B6D /* UITextField+Extension.swift in Sources */,
 				DF72E2492B7CA80400E49B6D /* ToDoView.swift in Sources */,
 				DF72E2372B7C7D7B00E49B6D /* BaseViewController.swift in Sources */,
 				DF72E25E2B7CCDE500E49B6D /* PriorityView.swift in Sources */,
+				DF67A2732B80BF7300F6D758 /* FilterEnum.swift in Sources */,
+				DF67A2752B80D26500F6D758 /* TodoEnum.swift in Sources */,
 				DF72E2442B7C837700E49B6D /* CustomCollectionReusableView.swift in Sources */,
 				DF5EEE682B7DF160006C5668 /* CategoryEnum.swift in Sources */,
 				DF72E23D2B7C7FE000E49B6D /* ReusableIdentifier.swift in Sources */,
 				DF72E2172B7C7C9D00E49B6D /* AppDelegate.swift in Sources */,
 				DF58AC312B7F7B7D00E64A76 /* AllTableViewCell.swift in Sources */,
 				DF72E2542B7CBB6800E49B6D /* DateView.swift in Sources */,
+				DF67A2712B80AB9C00F6D758 /* TodoRepository.swift in Sources */,
 				DF58AC392B7F9EF500E64A76 /* AllTableHeaderView.swift in Sources */,
 				DF72E24B2B7CAA9A00E49B6D /* MemoTableViewCell.swift in Sources */,
 				DF72E2402B7C802B00E49B6D /* UIView+Extension.swift in Sources */,
 				DF72E2662B7CEABE00E49B6D /* SectionEnum.swift in Sources */,
 				DF5EEE752B7DF726006C5668 /* TodoRealm.swift in Sources */,
 				DF72E2472B7CA7E200E49B6D /* NewToDoViewController.swift in Sources */,
+				DF67A2772B80EB9C00F6D758 /* Date+Extension.swift in Sources */,
 				DF5EEE7A2B7E1B85006C5668 /* AllViewController.swift in Sources */,
 				DF72E22B2B7C7D0600E49B6D /* CategoryViewController.swift in Sources */,
 				DF72E2342B7C7D5100E49B6D /* CategoryView.swift in Sources */,

@@ -17,6 +17,7 @@ class NewToDoViewController: BaseViewController {
     let mainView = ToDoView()
     
     var dataDic: [String: String] = [:]
+    let repository = TodoRepository()
     
     override func loadView() {
         self.view = mainView
@@ -34,9 +35,12 @@ class NewToDoViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         self.mainView.todoTableView.reloadData()
-        print(dataDic)
-        checkDicData()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
+        dataDic.removeAll()
     }
     
     override func configureNav() {
@@ -72,30 +76,33 @@ class NewToDoViewController: BaseViewController {
     }
     
     @objc func tappedRightButton() {
-        let dateFormatter = DateFormatter()
         
-        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
-        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
 
         guard let title = dataDic["Title"] else { return }
-        guard let tempDate = dataDic["Date"] else { return }
-        guard let tag = dataDic["Tag"] else { return }
-        guard let priority = dataDic["Priority"] else { return }
+        var date: Date?
         
         let memo = dataDic["Memo"]
+        let tag = dataDic["Tag"]
+        let priority = dataDic["Priority"]
 
-        let date:Date = dateFormatter.date(from: tempDate)!
-        
-        let realm = try! Realm()
-        
-        let data = TodoRealm(title: title, memo: memo, date: date, tag: tag, priority: priority)
-        
-        try! realm.write{
-                realm.add(data)
-            print("Realm Create")
+        if let tempDate = dataDic["Date"] {
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy. M. dd."
+            
+            date = dateFormatter.date(from: tempDate)!
         }
         
-        self.navigationController?.popViewController(animated: true)
+        
+        let item = TodoRealm(title: title, memo: memo, date: date, tag: tag, priority: priority, complete: false)
+        
+        do{
+            try repository.createItem(item: item)
+        } catch {
+            print("error", error)
+        }
+        
+        self.dismiss(animated: true)
     }
     
 }
@@ -153,6 +160,7 @@ extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
+        
         switch indexPath.section {
         case 1:
             let vc = DateViewController()
@@ -163,6 +171,7 @@ extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
         case 3:
             let vc = PriorityViewController()
             vc.segValue = { result in
+                print(result)
                 self.dataDic["Priority"] = result
             }
             
@@ -195,23 +204,22 @@ extension NewToDoViewController: UITextViewDelegate {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             textView.text = "메모"
             textView.textColor = .lightGray
+        } else {
+            dataDic["Memo"] = textView.text
         }
-        
-        checkDicData()
     }
 }
 
 extension NewToDoViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        print(textField.text)
+        dataDic["Title"] = textField.text
         checkDicData()
     }
 }
 
 extension NewToDoViewController {
     func checkDicData() {
-        if dataDic["Title"] != "" && dataDic["Date"] != nil && dataDic["Tag"] != "" && dataDic["Priority"] != "" {
-            print(#function)
+        if dataDic["Title"] != "" {
             self.navigationItem.rightBarButtonItem?.isEnabled = true
         } else {
             self.navigationItem.rightBarButtonItem?.isEnabled = false

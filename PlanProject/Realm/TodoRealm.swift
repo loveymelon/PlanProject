@@ -13,11 +13,12 @@ class TodoRealm: Object {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var title: String
     @Persisted var memo: String?
-    @Persisted var date: Date
-    @Persisted var tag: String
-    @Persisted var priority: String
+    @Persisted var date: Date?
+    @Persisted var tag: String?
+    @Persisted var priority: String?
+    @Persisted var complete: Bool
     
-    convenience init(title: String, memo: String? = nil, date: Date, tag: String, priority: String) {
+    convenience init(title: String, memo: String? = nil, date: Date?, tag: String?, priority: String?, complete: Bool) {
         self.init()
         
         self.title = title
@@ -25,6 +26,7 @@ class TodoRealm: Object {
         self.date = date
         self.tag = tag
         self.priority = priority
+        self.complete = complete
     }
     
 }

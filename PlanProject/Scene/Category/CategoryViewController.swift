@@ -9,7 +9,8 @@ import UIKit
 
 class CategoryViewController: BaseViewController {
     
-    lazy var mainView = CategoryView()
+    var mainView = CategoryView()
+    let repository = TodoRepository()
     
     override func loadView() {
         self.view = mainView
@@ -52,7 +53,7 @@ class CategoryViewController: BaseViewController {
     func goView() {
         let vc = NewToDoViewController()
         let nav = UINavigationController(rootViewController: vc)
-        
+        nav.modalPresentationStyle = .fullScreen
         self.present(nav, animated: true)
     }
 
@@ -70,8 +71,7 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         
         let categoryItem = CategoryEnum.allCases[indexPath.item]
         
-        cell.configureCell(item: categoryItem)
-        
+        cell.configureCell(item: categoryItem, count: repository.realmCount())
         
         return cell
     }

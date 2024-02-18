@@ -11,9 +11,10 @@ import Then
 
 class PriorityView: BaseView {
     
-    let segment = UISegmentedControl(items: ["중요", "보통"]).then {
+    let segment = UISegmentedControl(items: ["중요", "보통", "낮음"]).then {
         $0.backgroundColor = .white
         $0.selectedSegmentTintColor = .red
+        $0.selectedSegmentIndex = 0
     }
 
     override init(frame: CGRect) {

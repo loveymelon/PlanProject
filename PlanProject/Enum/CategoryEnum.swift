@@ -59,14 +59,5 @@ enum CategoryEnum: CaseIterable {
             return UIColor.gray
         }
     }
-    
-    var realmCount: Int {
-        let realm = try! Realm()
-        var list: Results<TodoRealm>!
-        
-        list = realm.objects(TodoRealm.self)
-        
-        return list.count
-    }
 
 }

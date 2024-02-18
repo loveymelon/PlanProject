@@ -11,9 +11,10 @@ import SnapKit
 
 class TagView: BaseView {
     
-    let tagTextField = UITextField().then {
-        $0.setPlaceholder(string: "입력하세요", color: .white)
-        $0.textColor = .white
+    let tagTextView = UITextView().then {
+        $0.text = "스페이스바로 나누면 #가 완성됩니다"
+        $0.textColor = .lightGray
+        $0.backgroundColor = .black
     }
 
     override init(frame: CGRect) {
@@ -25,15 +26,12 @@ class TagView: BaseView {
     }
     
     override func configureHierarchy() {
-        self.addSubview(tagTextField)
+        self.addSubview(tagTextView)
     }
     
     override func configureContraints() {
-        self.tagTextField.snp.makeConstraints { make in
-            make.width.equalTo(300)
-            make.height.equalTo(48)
-            make.centerX.equalToSuperview()
-            make.top.equalTo(self.safeAreaLayoutGuide).offset(20)
+        self.tagTextView.snp.makeConstraints { make in
+            make.edges.equalTo(self.safeAreaLayoutGuide)
         }
     }
     

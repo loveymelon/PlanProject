@@ -12,16 +12,14 @@ import Then
 class AllTableHeaderView: UITableViewHeaderFooterView {
 
     let listTitleLabel = UILabel().then {
-        $0.font = .boldSystemFont(ofSize: 24)
+        $0.font = .boldSystemFont(ofSize: 30)
         $0.textColor = .lightGray
-        $0.backgroundColor = .red
     }
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
         configureUI()
-        self.contentView.backgroundColor = .green
     }
     
     required init?(coder: NSCoder) {

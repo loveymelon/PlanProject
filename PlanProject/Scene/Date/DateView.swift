@@ -11,10 +11,11 @@ class DateView: BaseView {
     
     let datePicker = UIDatePicker(frame: .zero).then {
         $0.backgroundColor = .white
+        $0.datePickerMode = .date
     }
     
     let dateFormatter: DateFormatter = DateFormatter().then { 
-        $0.dateFormat = "yyyy/MM/dd hh:mm"
+        $0.dateFormat = "yyyy. M. dd."
     }
     
 

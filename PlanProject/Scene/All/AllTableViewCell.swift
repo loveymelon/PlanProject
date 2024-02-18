@@ -19,13 +19,11 @@ class AllTableViewCell: UITableViewCell {
     let priorityLabel = UILabel().then {
         $0.textColor = .systemBlue
         $0.font = .systemFont(ofSize: 16)
-        $0.text = "bb"
     }
     
     let memoTitleLabel = UILabel().then {
         $0.textColor = .white
         $0.font = .systemFont(ofSize: 18)
-        $0.text = "aaaaaaaaa"
     }
     
     let titleStackView = UIStackView().then {
@@ -38,19 +36,16 @@ class AllTableViewCell: UITableViewCell {
     let memoLabel = UILabel().then {
         $0.textColor = .lightGray
         $0.font = .systemFont(ofSize: 15)
-        $0.text = "avavav"
     }
     
     let dateLabel = UILabel().then {
         $0.textColor = .lightGray
         $0.font = .systemFont(ofSize: 15)
-        $0.text = "aaa"
     }
     
     let tagLabel = UILabel().then {
         $0.textColor = .cyan
         $0.font = .systemFont(ofSize: 15)
-        $0.text = "bbb"
     }
     
     let dateTagStackView = UIStackView().then {
@@ -67,8 +62,8 @@ class AllTableViewCell: UITableViewCell {
         $0.alignment = .leading
     }
     
-    var changeCheckButton: (() -> Void)?
-    let vc = AllViewController()
+    var errorHandler: ((Error, String) -> Void)?
+    let repository = TodoRepository()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -85,15 +80,29 @@ class AllTableViewCell: UITableViewCell {
     }
     
     @objc func tappedCheckButton() {
-        self.checkButton.isSelected.toggle()
+        print(#function, self.checkButton.isSelected)
+        self.checkButton.isSelected = !self.checkButton.isSelected
         
         if checkButton.isSelected {
-            checkButton.setImage(UIImage(systemName: "circle"), for: .normal)
-            checkButton.imageView?.tintColor = .lightGray
-        } else {
             checkButton.setImage(UIImage(systemName: "circle.inset.filled"), for: .normal)
             checkButton.imageView?.tintColor = .yellow
+            do {
+                print(checkButton.isSelected)
+                try repository.updateItem(index: self.checkButton.tag, updateData: .complete, complete: self.checkButton.isSelected)
+            } catch {
+                errorHandler?(error, "")
+            }
+        } else {
+            checkButton.setImage(UIImage(systemName: "circle"), for: .normal)
+            checkButton.imageView?.tintColor = .lightGray
+            
+            do {
+                try repository.updateItem(index: self.checkButton.tag, updateData: .complete, complete: self.checkButton.isSelected)
+            } catch {
+                errorHandler?(error, "")
+            }
         }
+        
         
     }
     
@@ -109,17 +118,25 @@ extension AllTableViewCell: ConfigureUIProtocol {
         self.contentView.addSubview(checkButton)
     
         [priorityLabel, memoTitleLabel].forEach { item in
-            if item != nil {
+            if item.text?.isEmpty == false {
                 self.titleStackView.addArrangedSubview(item)
             }
         }
         
         [dateLabel, tagLabel].forEach { item in
-            self.dateTagStackView.addArrangedSubview(item)
+            if item.text?.isEmpty == false {
+                self.dateTagStackView.addArrangedSubview(item)
+            }
         }
         
         [titleStackView, memoLabel, dateTagStackView].forEach { item in
-            self.totalStackView.addArrangedSubview(item)
+            if let label = item as? UILabel {
+                if label.text?.isEmpty == false {
+                    self.totalStackView.addArrangedSubview(label)
+                }
+            } else {
+                self.totalStackView.addArrangedSubview(item)
+            }
         }
         
         self.contentView.addSubview(totalStackView)
@@ -156,5 +173,27 @@ extension AllTableViewCell: ConfigureUIProtocol {
             make.leading.equalTo(self.checkButton.snp.trailing).offset(10)
             make.top.bottom.equalTo(self.contentView.safeAreaLayoutGuide).inset(10)
         }
+    }
+}
+
+extension AllTableViewCell {
+    func configureCell(index: Int, item: TodoRealm) {
+        self.priorityLabel.text = item.priority
+        self.memoTitleLabel.text = item.title
+        self.memoLabel.text = item.memo
+        self.dateLabel.text = item.date?.toString()
+        self.tagLabel.text = item.tag
+        
+        self.checkButton.tag = index
+        self.checkButton.isSelected = item.complete
+        
+        if self.checkButton.isSelected {
+            checkButton.setImage(UIImage(systemName: "circle.inset.filled"), for: .normal)
+            checkButton.imageView?.tintColor = .yellow
+        } else {
+            checkButton.setImage(UIImage(systemName: "circle"), for: .normal)
+            checkButton.imageView?.tintColor = .lightGray
+        }
+        configureHierarchy()
     }
 }

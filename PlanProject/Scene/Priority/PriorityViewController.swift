@@ -22,21 +22,19 @@ class PriorityViewController: BaseViewController {
 
     }
     
-    override func addTargetEvent() {
-        self.mainView.segment.addTarget(self, action: #selector(segValueChanged), for: .valueChanged)
-    }
-    
-    @objc func segValueChanged() {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
         switch self.mainView.segment.selectedSegmentIndex {
         case 0:
-            segValue?("중요")
+            segValue?("!!!")
         case 1:
-            segValue?("보통")
+            segValue?("!!")
+        case 2:
+            segValue?("!")
         default:
             break
         }
-        
-//        print(self.mainView.segment.selectedSegmentIndex)
     }
 
 }
