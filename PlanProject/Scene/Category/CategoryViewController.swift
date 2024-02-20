@@ -13,6 +13,8 @@ class CategoryViewController: BaseViewController {
     var mainView = CategoryView()
     let repository = TodoRepository()
     
+    var list: Results<MyList>?
+    
     override func loadView() {
         self.view = mainView
     }
@@ -20,17 +22,22 @@ class CategoryViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        list = repository.fetchRealmObject()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.mainView.collectionView.reloadData()
+        self.mainView.tableView.reloadData()
     }
     
     override func delegateDataSource() {
         self.mainView.collectionView.dataSource = self
         self.mainView.collectionView.delegate = self
+        
+        self.mainView.tableView.dataSource = self
+        self.mainView.tableView.delegate = self
     }
     
     override func configureNav() {
@@ -39,7 +46,7 @@ class CategoryViewController: BaseViewController {
         
         let addToDoButton = UIBarButtonItem(customView: self.mainView.addButton)
         
-        let addList = UIBarButtonItem(title: "목록 추가", style: .plain, target: self, action: nil)
+        let addList = UIBarButtonItem(title: "목록 추가", style: .plain, target: self, action: #selector(tappedAddListButton))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         
         self.mainView.addButtonFuc = { [self] in
@@ -57,6 +64,19 @@ class CategoryViewController: BaseViewController {
         nav.modalPresentationStyle = .fullScreen
         self.present(nav, animated: true)
     }
+    
+    @objc func tappedAddListButton() {
+        let vc = AddListViewController()
+        
+        let nav = UINavigationController(rootViewController: vc)
+        
+        vc.complete = { [self] in
+            list = repository.fetchRealmObject()
+            mainView.tableView.reloadData()
+        }
+        
+        present(nav, animated: true)
+    }
 
 }
 
@@ -69,7 +89,6 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as? CategoryCollectionViewCell else {
             return UICollectionViewCell()
         }
-        print(indexPath.item)
         
         let categoryItem = CategoryEnum.allCases[indexPath.item]
         
@@ -101,6 +120,39 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         
         self.navigationController?.pushViewController(vc, animated: true)
         
+    }
+    
+}
+
+extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return list?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "나의 목록"
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "Category")
+        
+        guard let item = list?[indexPath.row] else { return UITableViewCell() }
+        
+        cell.accessoryType = .disclosureIndicator
+        
+        cell.textLabel?.text = item.title
+        cell.detailTextLabel?.text = "\(item.detail.count)"
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = AllViewController()
+        
+        vc.list = list?[indexPath.row].detail
+        
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }

@@ -25,6 +25,10 @@ final class CategoryView: BaseView {
         $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
     }
     
+    let tableView = UITableView(frame: .zero, style: .insetGrouped).then {
+        $0.backgroundColor = .black
+    }
+    
     var addButtonFuc: (() -> Void)?
     
     private static func collectionFlowLayout() -> UICollectionViewFlowLayout {
@@ -44,12 +48,19 @@ final class CategoryView: BaseView {
     
     override func configureHierarchy() {
         self.addSubview(collectionView)
+        self.addSubview(tableView)
     }
     
     override func configureContraints() {
         self.collectionView.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(self.safeAreaLayoutGuide).inset(10)
-            make.top.bottom.equalTo(self.safeAreaLayoutGuide)
+            make.top.equalTo(self.safeAreaLayoutGuide)
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.5)
+        }
+        
+        self.tableView.snp.makeConstraints { make in
+            make.top.equalTo(self.collectionView.snp.bottom)
+            make.horizontalEdges.bottom.equalTo(self.safeAreaLayoutGuide)
         }
     }
     

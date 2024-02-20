@@ -8,6 +8,20 @@
 import Foundation
 import RealmSwift
 
+class MyList: Object {
+    @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted var title: String
+    @Persisted var date: Date
+    
+    @Persisted var detail: List<TodoRealm>
+    
+    convenience init(title: String, date: Date) {
+        self.init()
+        self.title = title
+        self.date = date
+    }
+}
+
 class TodoRealm: Object {
     
     @Persisted(primaryKey: true) var id: ObjectId
@@ -30,3 +44,4 @@ class TodoRealm: Object {
     }
     
 }
+

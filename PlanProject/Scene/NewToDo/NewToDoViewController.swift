@@ -19,6 +19,7 @@ class NewToDoViewController: BaseViewController {
     var dataDic: [String: String] = [:]
     let repository = TodoRepository()
     var userImage: UIImage?
+    var myList: MyList?
     
     override func loadView() {
         self.view = mainView
@@ -77,9 +78,8 @@ class NewToDoViewController: BaseViewController {
     }
     
     @objc func tappedRightButton() {
-        
+        print(#function)
         guard let title = dataDic["Title"] else { return }
-        guard let pickImage = userImage else { return }
         var date: Date?
         
         let memo = dataDic["Memo"]
@@ -96,15 +96,16 @@ class NewToDoViewController: BaseViewController {
         
         
         let item = TodoRealm(title: title, memo: memo, date: date, tag: tag, priority: priority, complete: false)
-        
-        self.mainView.saveImageToDocument(image: pickImage, filename: "\(item.id)")
-        
+        if let userImage = userImage {
+            self.mainView.saveImageToDocument(image: userImage, filename: "\(item.id)")
+        }
         do{
             try repository.createItem(item: item)
+            try repository.updateMyListDetail(myListItem: myList, detail: item)
         } catch {
             print("error", error)
         }
-        
+        print(#function)
         self.dismiss(animated: true)
     }
     
@@ -156,6 +157,8 @@ extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
                 let cellImageView = UIImageView(image: userImage)
                 cellImageView.frame = CGRect(x: 0, y: 0, width: 36, height: 36)
                 cell.accessoryView = cellImageView
+            case .list:
+                cell.detailTextLabel?.text = myList?.title
             default:
                 break
             }
@@ -189,6 +192,14 @@ extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
             vc.delegate = self
             present(vc, animated: true)
             return
+        case 5:
+            let vc = ListViewController()
+            
+            vc.listSelect = { result in
+                self.myList = result
+            }
+            
+            self.navigationController?.pushViewController(vc, animated: true)
         default:
             return
         }

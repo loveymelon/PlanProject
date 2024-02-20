@@ -18,7 +18,7 @@ enum RealmError: Error {
 final class TodoRepository {
     private let realm = try! Realm()
     
-    func createItem(item: TodoRealm) throws {
+    func createItem<T: Object>(item: T) throws {
         do {
             try realm.write {
                 realm.add(item)
@@ -61,7 +61,6 @@ final class TodoRepository {
         return todoData
     }
     
-    
     func fetchFilterItem(filter: FilterEnum) -> Results<TodoRealm> {
         
         var todoData = realm.objects(TodoRealm.self)
@@ -97,7 +96,7 @@ final class TodoRepository {
         
         let start = Calendar.current.startOfDay(for: filter)
         
-        let end: Date = Calendar.current.date(byAdding: .day, value: 1, to: start) ?? Date() // 이게 타입 추론이 안되는 이유가 기억이 안난다...
+        let end = Calendar.current.date(byAdding: .day, value: 1, to: start) ?? Date()
         
         let predicate = NSPredicate(format: "date >= %@ && date < %@", start as NSDate, end as NSDate)
         
@@ -185,4 +184,21 @@ final class TodoRepository {
         
         return todoData.count
     }
+    
+    func fetchRealmObject() -> Results<MyList> {
+        return realm.objects(MyList.self)
+    }
+    
+    func updateMyListDetail(myListItem: MyList?, detail: TodoRealm) {
+        
+        do {
+            try realm.write {
+                myListItem?.detail.append(detail)
+            }
+        } catch {
+            
+        }
+    }
+    
+    
 }

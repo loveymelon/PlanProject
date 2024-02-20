@@ -13,6 +13,7 @@ enum SectionEnum: Int, CaseIterable {
     case tag
     case priority
     case imageAdd
+    case list
     
     var sectionCount: Int {
         switch self {
@@ -33,6 +34,8 @@ enum SectionEnum: Int, CaseIterable {
             return "우선 순위"
         case .imageAdd:
             return "이미지 추가"
+        case .list:
+            return "목록"
         default:
             return ""
         }

@@ -1,24 +1,21 @@
 //
-//  AllView.swift
+//  AddListView.swift
 //  PlanProject
 //
-//  Created by 김진수 on 2/15/24.
+//  Created by 김진수 on 2/20/24.
 //
 
 import UIKit
-import SnapKit
 import Then
-import FSCalendar
+import SnapKit
 
-class AllView: BaseView {
-    
-    let tableView = UITableView().then {
-        $0.register(AllTableViewCell.self, forCellReuseIdentifier: AllTableViewCell.identifier)
-        $0.register(AllTableHeaderView.self, forHeaderFooterViewReuseIdentifier: AllTableHeaderView.identifier)
-        $0.backgroundColor = .black
+class AddListView: BaseView {
+
+    let tableView = UITableView(frame: .zero, style: .insetGrouped).then {
+        $0.register(AddListTableViewCell.self, forCellReuseIdentifier: AddListTableViewCell.identifier)
+        $0.rowHeight = UITableView.automaticDimension
         $0.tableFooterView = UIView(frame: CGRect(origin: .zero, size: CGSize(width:CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)))
         $0.tableHeaderView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 0.0, height: CGFloat.leastNonzeroMagnitude))
-        $0.rowHeight = UITableView.automaticDimension
     }
     
     override init(frame: CGRect) {
@@ -30,7 +27,7 @@ class AllView: BaseView {
     }
     
     override func configureHierarchy() {
-        self.addSubview(self.tableView)
+        self.addSubview(tableView)
     }
     
     override func configureContraints() {
@@ -38,5 +35,4 @@ class AllView: BaseView {
             make.edges.equalToSuperview()
         }
     }
-    
 }

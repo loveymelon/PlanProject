@@ -15,7 +15,9 @@ class AllViewController: BaseViewController {
     
     var titleText: String?
     let repository = TodoRepository()
-    var list: Results<TodoRealm>!
+    var list: Results<TodoRealm>?
+    
+    var res: List<TodoRealm>?
     
     override func loadView() {
         self.view = mainView
@@ -79,7 +81,6 @@ class AllViewController: BaseViewController {
         
         vc.calendarData = { [self] result in
             list = result
-            print(result)
             mainView.tableView.reloadData()
         }
         
@@ -95,12 +96,13 @@ class AllViewController: BaseViewController {
 extension AllViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
+        print(list?.count)
+        return list?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AllTableViewCell.identifier) as? AllTableViewCell else { return UITableViewCell() }
-        let item = list[indexPath.row]
+        guard let item = list?[indexPath.row] else { return UITableViewCell() }
         
         cell.configureCell(index: indexPath.row, item: item)
         
