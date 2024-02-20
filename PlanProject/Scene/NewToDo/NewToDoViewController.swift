@@ -18,6 +18,7 @@ class NewToDoViewController: BaseViewController {
     
     var dataDic: [String: String] = [:]
     let repository = TodoRepository()
+    var userImage: UIImage?
     
     override func loadView() {
         self.view = mainView
@@ -77,8 +78,8 @@ class NewToDoViewController: BaseViewController {
     
     @objc func tappedRightButton() {
         
-
         guard let title = dataDic["Title"] else { return }
+        guard let pickImage = userImage else { return }
         var date: Date?
         
         let memo = dataDic["Memo"]
@@ -95,6 +96,8 @@ class NewToDoViewController: BaseViewController {
         
         
         let item = TodoRealm(title: title, memo: memo, date: date, tag: tag, priority: priority, complete: false)
+        
+        self.mainView.saveImageToDocument(image: pickImage, filename: "\(item.id)")
         
         do{
             try repository.createItem(item: item)
@@ -149,6 +152,10 @@ extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.detailTextLabel?.text = dataDic["Tag"] ?? ""
             case .priority:
                 cell.detailTextLabel?.text = dataDic["Priority"] ?? ""
+            case .imageAdd:
+                let cellImageView = UIImageView(image: userImage)
+                cellImageView.frame = CGRect(x: 0, y: 0, width: 36, height: 36)
+                cell.accessoryView = cellImageView
             default:
                 break
             }
@@ -176,6 +183,12 @@ extension NewToDoViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             self.navigationController?.pushViewController(vc, animated: true)
+        case 4:
+            let vc = UIImagePickerController()
+            vc.allowsEditing = true
+            vc.delegate = self
+            present(vc, animated: true)
+            return
         default:
             return
         }
@@ -224,5 +237,29 @@ extension NewToDoViewController {
         } else {
             self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
+    }
+}
+
+extension NewToDoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print(#function)
+        dismiss(animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print(#function)
+        
+        // 편집된 이미지가 아니라 오직 오리지날 이미지를 갖고 싶을때
+//        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+//            photoImageView.image = pickedImage
+//        }
+        
+        // 편집된 이미지를 가져오고 싶을때
+        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            self.userImage = pickedImage
+        }
+        
+        dismiss(animated: true)
+        self.mainView.todoTableView.reloadData()
     }
 }

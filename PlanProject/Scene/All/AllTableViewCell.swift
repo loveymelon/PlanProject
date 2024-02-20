@@ -62,6 +62,10 @@ class AllTableViewCell: UITableViewCell {
         $0.alignment = .leading
     }
     
+    let userImageView = UIImageView().then {
+        $0.backgroundColor = .gray
+    }
+    
     var errorHandler: ((Error, String) -> Void)?
     let repository = TodoRepository()
 
@@ -140,6 +144,7 @@ extension AllTableViewCell: ConfigureUIProtocol {
         }
         
         self.contentView.addSubview(totalStackView)
+        self.contentView.addSubview(userImageView)
         
     }
     
@@ -173,6 +178,12 @@ extension AllTableViewCell: ConfigureUIProtocol {
             make.leading.equalTo(self.checkButton.snp.trailing).offset(10)
             make.top.bottom.equalTo(self.contentView.safeAreaLayoutGuide).inset(10)
         }
+        
+        self.userImageView.snp.makeConstraints { make in
+            make.trailing.equalTo(self.safeAreaLayoutGuide).inset(10)
+            make.verticalEdges.equalToSuperview()
+            make.width.equalTo(self.userImageView.snp.height)
+        }
     }
 }
 
@@ -183,6 +194,7 @@ extension AllTableViewCell {
         self.memoLabel.text = item.memo
         self.dateLabel.text = item.date?.toString()
         self.tagLabel.text = item.tag
+        self.userImageView.image = loadImageToDocument(filename: "\(item.id)")
         
         self.checkButton.tag = index
         self.checkButton.isSelected = item.complete
@@ -195,5 +207,6 @@ extension AllTableViewCell {
             checkButton.imageView?.tintColor = .lightGray
         }
         configureHierarchy()
+        
     }
 }

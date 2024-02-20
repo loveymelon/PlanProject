@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class CategoryViewController: BaseViewController {
     
@@ -68,10 +69,11 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as? CategoryCollectionViewCell else {
             return UICollectionViewCell()
         }
+        print(indexPath.item)
         
         let categoryItem = CategoryEnum.allCases[indexPath.item]
         
-        cell.configureCell(item: categoryItem, count: repository.realmCount())
+        cell.configureCell(item: categoryItem, count: repository.realmCount(category: categoryItem))
         
         return cell
     }
@@ -90,9 +92,12 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CategoryCollectionViewCell else { return }
         
+        let categoryItem = CategoryEnum.allCases[indexPath.item]
+        
         let vc = AllViewController()
         
         vc.titleText = cell.categoryLabel.text
+        vc.list = repository.fetchCategoryItem(categoryItem: categoryItem)
         
         self.navigationController?.pushViewController(vc, animated: true)
         

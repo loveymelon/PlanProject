@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Then
+import FSCalendar
 
 class AllView: BaseView {
     
@@ -20,12 +21,8 @@ class AllView: BaseView {
         $0.rowHeight = UITableView.automaticDimension
     }
     
-    lazy var filterButton = UIButton().then {
-        $0.setTitle("...버튼", for: .normal)
-        $0.setTitleColor(.white, for: .normal)
-        $0.addTarget(self, action: #selector(tappedFilterButton), for: .touchUpInside)
-    }
 
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -44,7 +41,4 @@ class AllView: BaseView {
         }
     }
     
-    @objc func tappedFilterButton() {
-        print(#function)
-    }
 }

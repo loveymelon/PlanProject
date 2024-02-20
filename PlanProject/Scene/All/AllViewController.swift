@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import FSCalendar
 
 class AllViewController: BaseViewController {
     
@@ -22,8 +23,7 @@ class AllViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        list = repository.fetchItem(filter: .none)
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,32 +36,58 @@ class AllViewController: BaseViewController {
         
         let menuItems: [UIAction] = [
             UIAction(title: "마감일순", handler: { [self] _ in
-                list = repository.fetchItem(filter: .date)
+                list = repository.fetchFilterItem(filter: .date)
                 mainView.tableView.reloadData()
             }),
             UIAction(title: "완료순", handler: { [self] _  in
-                list = repository.fetchItem(filter: .complete)
+                list = repository.fetchFilterItem(filter: .complete)
                 mainView.tableView.reloadData()
             }),
             UIAction(title: "우선순위순", handler: { [self] _ in
-                list = repository.fetchItem(filter: .priority)
+                list = repository.fetchFilterItem(filter: .priority)
                 mainView.tableView.reloadData()
             }),
             UIAction(title: "전체보기", handler: { [self] _ in
-                list = repository.fetchItem(filter: .none)
+                list = repository.fetchFilterItem(filter: .none)
                 mainView.tableView.reloadData()
             })
         ]
         let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: self, action: nil)
+        let leftButton = UIButton()
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(tappedBackButton))
+        
+        leftButton.setImage(UIImage(systemName: "calendar.circle"), for: .normal)
+        leftButton.addTarget(self, action: #selector(tappedLeftBarButton), for: .touchUpInside)
         
         rightBarButton.menu = UIMenu(children: menuItems)
         
+        let barLeftButton = UIBarButtonItem(customView: leftButton)
+        
+        self.navigationItem.leftBarButtonItems = [backButton, barLeftButton]
         self.navigationItem.rightBarButtonItem = rightBarButton
+        
     }
     
     override func delegateDataSource() {
         self.mainView.tableView.delegate = self
         self.mainView.tableView.dataSource = self
+        
+    }
+    
+    @objc func tappedLeftBarButton() {
+        let vc = CalendarViewController()
+        
+        vc.calendarData = { [self] result in
+            list = result
+            print(result)
+            mainView.tableView.reloadData()
+        }
+        
+        present(vc, animated: true)
+    }
+    
+    @objc func tappedBackButton() {
+        self.navigationController?.popViewController(animated: true)
     }
     
 }
@@ -126,4 +152,5 @@ extension AllViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
 

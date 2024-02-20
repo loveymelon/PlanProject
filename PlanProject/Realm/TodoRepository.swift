@@ -20,7 +20,7 @@ final class TodoRepository {
     
     func createItem(item: TodoRealm) throws {
         do {
-            try realm.write{
+            try realm.write {
                 realm.add(item)
                 print(realm.configuration.fileURL)
             }
@@ -30,8 +30,39 @@ final class TodoRepository {
         
     }
     
+    func fetchCategoryItem(categoryItem: CategoryEnum) -> Results<TodoRealm> {
+        var todoData = realm.objects(TodoRealm.self)
+        
+        switch categoryItem {
+        case .today:
+            let start = Calendar.current.startOfDay(for: Date())
+            
+            let end: Date = Calendar.current.date(byAdding: .day, value: 1, to: start) ?? Date() // 이게 타입 추론이 안되는 이유가 기억이 안난다...
+            
+            let predicate = NSPredicate(format: "date >= %@ && date < %@", start as NSDate, end as NSDate)
+            
+            todoData = todoData.filter(predicate)
+        case .plan:
+            let start = Calendar.current.startOfDay(for: Date())
+            
+            let predicate = NSPredicate(format: "date > %@", start as NSDate)
+            
+            todoData = todoData.filter(predicate)
+        case .all:
+            break
+        case .flag:
+            break
+        case .complete:
+            todoData = todoData.where {
+                $0.complete == true
+            }
+        }
+        
+        return todoData
+    }
     
-    func fetchItem(filter: FilterEnum) -> Results<TodoRealm> {
+    
+    func fetchFilterItem(filter: FilterEnum) -> Results<TodoRealm> {
         
         var todoData = realm.objects(TodoRealm.self)
         
@@ -58,6 +89,21 @@ final class TodoRepository {
             return todoData
         }
         
+    }
+    
+    func fetchDateItem(filter: Date) -> Results<TodoRealm> {
+        
+        var todoData = realm.objects(TodoRealm.self)
+        
+        let start = Calendar.current.startOfDay(for: filter)
+        
+        let end: Date = Calendar.current.date(byAdding: .day, value: 1, to: start) ?? Date() // 이게 타입 추론이 안되는 이유가 기억이 안난다...
+        
+        let predicate = NSPredicate(format: "date >= %@ && date < %@", start as NSDate, end as NSDate)
+        
+        todoData = todoData.filter(predicate)
+        
+        return todoData
         
     }
     
@@ -110,7 +156,33 @@ final class TodoRepository {
         
     }
     
-    func realmCount() -> Int {
-        return realm.objects(TodoRealm.self).count
+    func realmCount(category: CategoryEnum) -> Int {
+        var todoData = realm.objects(TodoRealm.self)
+        switch category {
+        case .today:
+            let start = Calendar.current.startOfDay(for: Date())
+            
+            let end: Date = Calendar.current.date(byAdding: .day, value: 1, to: start) ?? Date() // 이게 타입 추론이 안되는 이유가 기억이 안난다...
+            
+            let predicate = NSPredicate(format: "date >= %@ && date < %@", start as NSDate, end as NSDate)
+            
+            todoData = todoData.filter(predicate)
+        case .plan:
+            let start = Calendar.current.startOfDay(for: Date())
+            
+            let predicate = NSPredicate(format: "date > %@", start as NSDate)
+            
+            todoData = todoData.filter(predicate)
+        case .all:
+            break
+        case .flag:
+            break
+        case .complete:
+            todoData = todoData.where {
+                $0.complete == true
+            }
+        }
+        
+        return todoData.count
     }
 }
