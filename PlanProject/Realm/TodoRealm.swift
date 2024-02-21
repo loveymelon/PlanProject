@@ -32,6 +32,8 @@ class TodoRealm: Object {
     @Persisted var priority: String?
     @Persisted var complete: Bool
     
+    @Persisted(originProperty: "detail") var main: LinkingObjects<MyList>
+    
     convenience init(title: String, memo: String? = nil, date: Date?, tag: String?, priority: String?, complete: Bool) {
         self.init()
         

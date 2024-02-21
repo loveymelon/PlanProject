@@ -15,9 +15,9 @@ class AllViewController: BaseViewController {
     
     var titleText: String?
     let repository = TodoRepository()
-    var list: Results<TodoRealm>?
-    
-    var res: List<TodoRealm>?
+//    var list: Results<TodoRealm>?
+//    var res: MyList?
+    let realmDatas = RealmDatas()
     
     override func loadView() {
         self.view = mainView
@@ -38,19 +38,19 @@ class AllViewController: BaseViewController {
         
         let menuItems: [UIAction] = [
             UIAction(title: "마감일순", handler: { [self] _ in
-                list = repository.fetchFilterItem(filter: .date)
+                realmDatas.fetchFilter(filter: .date)
                 mainView.tableView.reloadData()
             }),
             UIAction(title: "완료순", handler: { [self] _  in
-                list = repository.fetchFilterItem(filter: .complete)
+                realmDatas.fetchFilter(filter: .complete)
                 mainView.tableView.reloadData()
             }),
             UIAction(title: "우선순위순", handler: { [self] _ in
-                list = repository.fetchFilterItem(filter: .priority)
+                realmDatas.fetchFilter(filter: .priority)
                 mainView.tableView.reloadData()
             }),
             UIAction(title: "전체보기", handler: { [self] _ in
-                list = repository.fetchFilterItem(filter: .none)
+                realmDatas.fetchFilter(filter: .none)
                 mainView.tableView.reloadData()
             })
         ]
@@ -80,7 +80,7 @@ class AllViewController: BaseViewController {
         let vc = CalendarViewController()
         
         vc.calendarData = { [self] result in
-            list = result
+            realmDatas.result = result
             mainView.tableView.reloadData()
         }
         
@@ -96,13 +96,13 @@ class AllViewController: BaseViewController {
 extension AllViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(list?.count)
-        return list?.count ?? 0
+        
+        return realmDatas.dataCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AllTableViewCell.identifier) as? AllTableViewCell else { return UITableViewCell() }
-        guard let item = list?[indexPath.row] else { return UITableViewCell() }
+        guard let item = realmDatas.fetchRealmDatas(index: indexPath.row) else { return UITableViewCell() }
         
         cell.configureCell(index: indexPath.row, item: item)
         

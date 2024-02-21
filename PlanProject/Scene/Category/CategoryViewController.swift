@@ -116,7 +116,8 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         let vc = AllViewController()
         
         vc.titleText = cell.categoryLabel.text
-        vc.list = repository.fetchCategoryItem(categoryItem: categoryItem)
+//        vc.list = repository.fetchCategoryItem(categoryItem: categoryItem)
+        vc.realmDatas.result = repository.fetchCategoryItem(categoryItem: categoryItem)
         
         self.navigationController?.pushViewController(vc, animated: true)
         
@@ -150,7 +151,7 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = AllViewController()
         
-        vc.list = list?[indexPath.row].detail
+        vc.realmDatas.linkData = list?[indexPath.row].detail
         
         self.navigationController?.pushViewController(vc, animated: true)
     }

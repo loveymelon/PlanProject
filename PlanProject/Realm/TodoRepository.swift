@@ -37,7 +37,7 @@ final class TodoRepository {
         case .today:
             let start = Calendar.current.startOfDay(for: Date())
             
-            let end: Date = Calendar.current.date(byAdding: .day, value: 1, to: start) ?? Date() // 이게 타입 추론이 안되는 이유가 기억이 안난다...
+            let end: Date = Calendar.current.date(byAdding: .day, value: 1, to: start) ?? Date()
             
             let predicate = NSPredicate(format: "date >= %@ && date < %@", start as NSDate, end as NSDate)
             
@@ -67,26 +67,26 @@ final class TodoRepository {
         
         switch filter {
         case .none:
+            break
             
-            return todoData
         case .complete:
             todoData = todoData.where {
                 $0.complete == true
             }
-            return todoData
+            
         case .priority:
             todoData = todoData.where {
                 $0.priority != nil
             }.sorted(byKeyPath: "priority", ascending: false)
             
-            return todoData
         case .date:
             todoData = todoData.where {
                 $0.date != nil
             }.sorted(byKeyPath: "date", ascending: true)
             
-            return todoData
         }
+        
+        return todoData
         
     }
     
